@@ -31,7 +31,7 @@ public class Tile {
     }
 
     /** Return my next state.  Before I am moved or merged, I am my
-     *  own successor. */
+     *  own successor. 继承者 */
     public Tile next() {
         return next == null ? this : next;
     }
@@ -41,7 +41,7 @@ public class Tile {
         return new Tile(value, col, row);
     }
 
-    /** Return the result of moving me to (COL, ROW). */
+    /** Return the result of moving me to (COL, ROW).返回移动后的tile，并与前一个关联了 */
     public Tile move(int col, int row) {
         Tile result = new Tile(value, col, row);
         next = result;
@@ -49,7 +49,7 @@ public class Tile {
     }
 
     /** Return the result of merging OTHERTILE with me after moving to
-     *  (COL, ROW). */
+     *  (COL, ROW).返回合并后的tile，并与合并前的两个关联 */
     public Tile merge(int col, int row, Tile otherTile) {
         assert value == otherTile.value();
         next = otherTile.next = new Tile(2 * value, col, row);
@@ -57,7 +57,7 @@ public class Tile {
     }
 
     /** Return the distance in rows or columns between me and my successor
-     *  tile (0 if I have no successor). */
+     *  tile (0 if I have no successor). 返回到下一步位置的距离，横纵有一个方向一定是0 */
     public int distToNext() {
         if (next == null) {
             return 0;
