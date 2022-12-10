@@ -44,7 +44,7 @@ public class BuggyAList<Item> {
 
     /** Returns the item from the back of the list. */
     public Item getLast() {
-        return items[size - 1];
+        return items[size-1];
     }
     /** Gets the ith item in the list (0 is the front). */
     public Item get(int i) {
