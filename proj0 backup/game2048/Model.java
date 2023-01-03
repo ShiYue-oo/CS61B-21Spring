@@ -26,7 +26,7 @@ public class Model extends Observable {
     public static final int MAX_PIECE = 2048;
 
     /** A new 2048 game on a board of size SIZE with no pieces
-     *  and score 0. */
+     *  and score 0.  初始*/
     public Model(int size) {
         board = new Board(size);
         score = maxScore = 0;
@@ -35,7 +35,9 @@ public class Model extends Observable {
 
     /** A new 2048 game where RAWVALUES contain the values of the tiles
      * (0 if null). VALUES is indexed by (row, col) with (0, 0) corresponding
-     * to the bottom-left corner. Used for testing purposes. */
+     * to the bottom-left corner. Used for testing purposes.
+     * 一个新的 2048 游戏，其中 RAWVALUES 包含图块的值（如果为空则为 0）。
+     * VALUES 由 (row, col) 索引，其中 (0, 0) 对应于左下角。 用于测试目的。*/
     public Model(int[][] rawValues, int score, int maxScore, boolean gameOver) {
         int size = rawValues.length;
         board = new Board(rawValues, score);
@@ -113,14 +115,48 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        board.setViewingPerspective(side);
+        for(int i=0;i<board.size();i++){
+            if(change_col(i)){
+                changed=true;
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
     }
-
+    public boolean change_col(int col){
+       boolean changed = false;
+       int[] flag=new int[board.size()];
+       for(int i=board.size()-2;i>=0;i--){
+           if(board.tile(col,i)==null)continue;
+           int de=dest(col,board.size()-1,i,flag);
+           if(de!=i){
+               if(board.move(col,de,board.tile(col,i))){
+                   score+=board.tile(col,de).value();
+                   flag[de]=1;
+               }
+               changed=true;
+           }
+       }
+       return changed;
+    }
+    public int dest(int col,int end,int now,int[] flag){
+       int res=now;
+       for(int i=now+1;i<=end;i++){
+           if(flag[i]==1)break;
+           if(board.tile(col,i)==null){
+               res+=1;
+               continue;
+           }
+           if(board.tile(col,i).value()==board.tile(col,now).value())return i;
+           break;
+       }
+       return res;
+    }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
      */
@@ -138,8 +174,18 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+//        return false;
+        int size=b.size();
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(b.tile(i,j)==null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
+
 
     /**
      * Returns true if any tile is equal to the maximum valid value.
@@ -148,6 +194,16 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int size=b.size();
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(b.tile(i,j)!=null){
+                    if(b.tile(i,j).value()==MAX_PIECE){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -159,12 +215,26 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if(emptySpaceExists(b))return true;
+        int size=b.size();
+        int dir[][]={{0,1},{0,-1},{1,0},{-1,0}};
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                for(int k=0;k<4;k++){
+                    int a1=i+dir[k][0];
+                    int b1=j+dir[k][1];
+                    if(a1>=0&&a1<4&&b1>=0&&b1<4){
+                        if(b.tile(i,j).value()==b.tile(a1,b1).value())return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
 
     @Override
-     /** Returns the model as a string, used for debugging. */
+    /** Returns the model as a string, used for debugging. */
     public String toString() {
         Formatter out = new Formatter();
         out.format("%n[%n");
