@@ -1,6 +1,6 @@
 package deque;
 import java.util.Iterator;
-public class LinkedListDeque<T>{
+public class LinkedListDeque<T> implements Deque<T>{
 
     public class Node{  //这里嵌套类在加T 会有歧义
         public T item;
@@ -38,10 +38,7 @@ public class LinkedListDeque<T>{
         temp.pre.next=temp;
         temp.next=tail;
     }
-    public boolean isEmpty(){
-        if(size==0)return true;
-        else return false;
-    }
+
     public int size(){
         return size;
     }
