@@ -13,7 +13,7 @@ public class ArrayDeque<T> implements Deque<T> {
         head=1;
         tail=0;
     }
-    public void resize(){
+    private void resize(){
         T[] a=(T [])new Object[items.length*2];
         Iterator<T> it=this.iterator();
         int cnt=items.length-1;
@@ -25,7 +25,7 @@ public class ArrayDeque<T> implements Deque<T> {
         tail=cnt;
         items=a;
     }
-    public void subsize(){
+    private void subsize(){
         T[] a=(T[])new Object[items.length/2];
         Iterator<T> it=this.iterator();
         int cnt=size;
@@ -92,7 +92,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public Iterator<T> iterator(){
         return new ArrayDequeIterator();
     }
-    public class ArrayDequeIterator implements Iterator<T>{
+    private class ArrayDequeIterator implements Iterator<T>{
         private int wizPos;
         private ArrayDequeIterator(){
             wizPos=0;
@@ -111,8 +111,8 @@ public class ArrayDeque<T> implements Deque<T> {
     public boolean equals(Object o){
         if(this==o)return true;
         if(o==null)return false;
-        if(!(o instanceof ArrayDeque))return false;
-        ArrayDeque<T> other=(ArrayDeque<T>) o;
+        if(!(o instanceof Deque))return false;
+        Deque<T> other=(Deque<T>) o;
         if(this.size()!=other.size())return false;
         Iterator<T> it1=this.iterator();
         Iterator<T> it2=other.iterator();
@@ -123,19 +123,5 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         return true;
     }
-    public static void main(String[] args){
-        ArrayDeque<String> test= new ArrayDeque<>();
-        System.out.print(test.size()+" ");
-        test.addFirst("lwq");
-        System.out.print(test.size()+" ");
-        for(int i=0;i<9999;i++){
-            test.addLast("wq-go");
-        }
-        System.out.print(test.size()+" ");
-        System.out.print(test.get(10000)+" ");
-        for(int i=0;i<9990;i++){
-            test.removeFirst();
-        }
-        System.out.print(test.size());
-    }
+
 }

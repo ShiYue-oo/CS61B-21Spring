@@ -2,7 +2,7 @@ package deque;
 import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>{
 
-    public class Node{  //这里嵌套类在加T 会有歧义
+    private class Node{  //这里嵌套类在加T 会有歧义
         public T item;
         public Node pre;
         public Node next;
@@ -92,7 +92,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     public Iterator<T> iterator(){
         return new LinkedListIterator();
     }
-    public class LinkedListIterator implements Iterator<T>{
+    private class LinkedListIterator implements Iterator<T>{
         private int wizPos;
         private LinkedListIterator(){
             wizPos=0;
@@ -111,8 +111,8 @@ public class LinkedListDeque<T> implements Deque<T>{
     public boolean equals(Object o){
         if(this==o)return true;
         if(o==null)return false;
-        if(!(o instanceof LinkedListDeque))return false;
-        LinkedListDeque<T> other=(LinkedListDeque<T>) o;
+        if(!(o instanceof Deque))return false;
+        Deque<T> other=(Deque<T>) o;
         if(this.size()!=other.size())return false;
         Iterator<T> it1=this.iterator();
         Iterator<T> it2=other.iterator();
@@ -122,5 +122,29 @@ public class LinkedListDeque<T> implements Deque<T>{
             }
         }
         return true;
+    }
+    public static void main(String[] args) {
+        int n = 99;
+
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        for (int i = 0; i <= n; i++) {
+            lld1.addLast(i);
+        }
+
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        for (int i = n; i >= 0; i--) {
+            lld2.addFirst(i);
+        }
+
+        lld1.printDeque();
+
+        System.out.println(lld1.equals(lld2));
+
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i <= n; i++) {
+            ad1.addLast(i);
+        }
+
+        System.out.println(lld1.equals(ad1));
     }
 }
