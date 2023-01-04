@@ -73,7 +73,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeFirst() {
-        if (this.isEmpty()) return null;
+        if (this.isEmpty()) {
+            return null;
+        }
         T res = items[(head - 1 + items.length) % items.length];
         head = (head - 1 + items.length) % items.length;
         size--;
@@ -84,7 +86,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeLast() {
-        if (this.isEmpty()) return null;
+        if (this.isEmpty()) {
+            return null;
+        }
         T res = items[(tail + 1) % items.length];
         tail = (tail + 1) % items.length;
         size--;
@@ -95,7 +99,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T get(int index) {
-        if (index < 0 && index >= (head - tail - 1 + items.length) % items.length) return null;
+        if (index < 0 && index >= (head - tail - 1 + items.length) % items.length) {
+            return null;
+        }
         return items[(head - index - 1 + items.length) % items.length];
     }
 
@@ -123,13 +129,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        if (!(o instanceof Deque)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (!(o instanceof Deque)) {
+            return false;
+        }
         Deque<T> other = (Deque<T>) o;
-        if (this.size() != other.size()) return false;
+        if (this.size() != other.size()) {
+            return false;
+        }
         for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).equals(other.get(i))) {
+            if (!this.get(i).equals(other.get(i))) {
                 return false;
             }
         }
@@ -137,3 +151,4 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
 }
+
