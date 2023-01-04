@@ -1,7 +1,8 @@
 package gh2;
 
 /* Imports the required audio library from the
- * edu.princeton.cs.introcs package. */
+ * edu.princeton.cs.introcs package.从中导入所需的音频库
+ edu.princeton.cs.introcs 包。 */
 import edu.princeton.cs.introcs.StdAudio;
 
 import org.junit.Test;

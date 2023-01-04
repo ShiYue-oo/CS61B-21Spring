@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Plays guitar from MIDI files.
+ * Plays guitar from MIDI files.从 MIDI 文件弹奏吉他。
  *
  * @author Eli Lipsitz
  */
