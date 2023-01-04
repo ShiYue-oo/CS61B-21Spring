@@ -18,22 +18,22 @@ public class ArrayDequeTest {
 
         ArrayDeque<String> ad1 = new ArrayDeque<String>();
 
-		assertTrue("A newly initialized LLDeque should be empty", ad1.isEmpty());
-		ad1.addFirst("front");
+        assertTrue("A newly initialized LLDeque should be empty", ad1.isEmpty());
+        ad1.addFirst("front");
 
-		// The && operator is the same as "and" in Python.
-		// It's a binary operator that returns true if both arguments true, and false otherwise.
+        // The && operator is the same as "and" in Python.
+        // It's a binary operator that returns true if both arguments true, and false otherwise.
         assertEquals(1, ad1.size());
         assertFalse("ad1 should now contain 1 item", ad1.isEmpty());
 
-		ad1.addLast("middle");
-		assertEquals(2, ad1.size());
+        ad1.addLast("middle");
+        assertEquals(2, ad1.size());
 
-		ad1.addLast("back");
-		assertEquals(3, ad1.size());
+        ad1.addLast("back");
+        assertEquals(3, ad1.size());
 
-		System.out.println("Printing out deque: ");
-		ad1.printDeque();
+        System.out.println("Printing out deque: ");
+        ad1.printDeque();
     }
 
     @Test
@@ -41,19 +41,19 @@ public class ArrayDequeTest {
     public void addRemoveTest() {
 
         // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        
+
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
-		// should be empty
-		assertTrue("ad1 should be empty upon initialization", ad1.isEmpty());
+        // should be empty
+        assertTrue("ad1 should be empty upon initialization", ad1.isEmpty());
 
-		ad1.addFirst(10);
-		// should not be empty
-		assertFalse("ad1 should contain 1 item", ad1.isEmpty());
+        ad1.addFirst(10);
+        // should not be empty
+        assertFalse("ad1 should contain 1 item", ad1.isEmpty());
 
-		ad1.removeFirst();
-		// should be empty
-		assertTrue("ad1 should be empty after removal", ad1.isEmpty());
-        
+        ad1.removeFirst();
+        // should be empty
+        assertTrue("ad1 should be empty after removal", ad1.isEmpty());
+
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ArrayDequeTest {
     public void removeEmptyTest() {
 
         // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        
+
         ArrayDeque<Integer> ad1 = new ArrayDeque<>();
         ad1.addFirst(3);
 
@@ -79,22 +79,22 @@ public class ArrayDequeTest {
     }
 
     @Test
-    /* Check if you can create ArrayDeques with different parameterized types*/
+    /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        
+
         ArrayDeque<String>  ad1 = new ArrayDeque<String>();
-        ArrayDeque<Double>  ad2 = new ArrayDeque<Double>();
-        ArrayDeque<Boolean> ad3 = new ArrayDeque<Boolean>();
+        ArrayDeque<Double>  lld2 = new ArrayDeque<Double>();
+        ArrayDeque<Boolean> lld3 = new ArrayDeque<Boolean>();
 
         ad1.addFirst("string");
-        ad2.addFirst(3.14159);
-        ad3.addFirst(true);
+        lld2.addFirst(3.14159);
+        lld3.addFirst(true);
 
         String s = ad1.removeFirst();
-        double d = ad2.removeFirst();
-        boolean b = ad3.removeFirst();
-        
+        double d = lld2.removeFirst();
+        boolean b = lld3.removeFirst();
+
     }
 
     @Test
@@ -102,7 +102,7 @@ public class ArrayDequeTest {
     public void emptyNullReturnTest() {
 
         // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        
+
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
 
         boolean passed1 = false;
@@ -110,7 +110,7 @@ public class ArrayDequeTest {
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, ad1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, ad1.removeLast());
 
-        
+
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ArrayDequeTest {
     public void bigLLDequeTest() {
 
         // System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        
+
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             ad1.addLast(i);
@@ -132,6 +132,6 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
         }
 
-        
+
     }
 }
